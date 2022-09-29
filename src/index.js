@@ -15,3 +15,22 @@ root.render(
     </Provider>
   </React.StrictMode>
 );
+
+// {
+//   "id": 1,
+//   "name": "Первый герой",
+//   "description": "Первый герой в рейтинге!",
+//   "element": "fire"
+// },
+// {
+//   "id": 2,
+//   "name": "Неизвестный герой",
+//   "description": "Скрывающийся в тени",
+//   "element": "wind"
+// },
+// {
+//   "id": 5,
+//   "name": "sergo",
+//   "description": "dood",
+//   "element": "earth"
+// }
