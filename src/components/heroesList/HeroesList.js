@@ -6,6 +6,7 @@ import { heroesFetching, heroesFetched, heroesFetchingError } from '../../action
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
+//TODO DONE
 // Задача для этого компонента:
 // При клике на "крестик" идет удаление персонажа из общего состояния
 // Усложненная задача:
@@ -24,6 +25,10 @@ const HeroesList = () => {
         // eslint-disable-next-line
     }, []);
 
+    useEffect(() => {
+        renderHeroesList(heroes)
+    }, [heroes])
+
     if (heroesLoadingStatus === "loading") {
         return <Spinner/>;
     } else if (heroesLoadingStatus === "error") {
@@ -36,7 +41,7 @@ const HeroesList = () => {
         }
 
         return arr.map(({id, ...props}) => {
-            return <HeroesListItem key={id} {...props}/>
+            return <HeroesListItem key={id} id={id} {...props}/>
         })
     }
 

@@ -1,6 +1,11 @@
+import {useHttp} from '../../hooks/http.hook';
+import { useDispatch } from 'react-redux';
+import { heroesDelete } from '../../actions';
 
-const HeroesListItem = ({name, description, element}) => {
-
+const HeroesListItem = ({id, name, description, element}) => {
+    const {request} = useHttp();
+    const dispatch = useDispatch();
+    
     let elementClassName;
 
     switch (element) {
@@ -20,6 +25,11 @@ const HeroesListItem = ({name, description, element}) => {
             elementClassName = 'bg-warning bg-gradient';
     }
 
+    const onDeleteHeroes = (id) => {
+        dispatch(heroesDelete(id));
+        request(`http://localhost:3001/heroes/${id}`, "DELETE");
+    }
+
     return (
         <li 
             className={`card flex-row mb-4 shadow-lg text-white ${elementClassName}`}>
@@ -33,7 +43,10 @@ const HeroesListItem = ({name, description, element}) => {
                 <p className="card-text">{description}</p>
             </div>
             <span className="position-absolute top-0 start-100 translate-middle badge border rounded-pill bg-light">
-                <button type="button" className="btn-close btn-close" aria-label="Close"></button>
+                <button onClick={(e) => onDeleteHeroes(id)}
+                        type="button"
+                        className="btn-close btn-close" 
+                        aria-label="Close"></button>
             </span>
         </li>
     )
