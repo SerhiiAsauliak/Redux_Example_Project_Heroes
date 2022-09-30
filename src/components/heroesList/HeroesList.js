@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CSSTransition, TransitionGroup} from 
 'react-transition-group';
+import { createSelector } from 'reselect';
 import './heroList.scss'
 
 import { heroesFetching, heroesFetched, heroesFetchingError } from '../../actions';
@@ -10,7 +11,23 @@ import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
 const HeroesList = () => {
-    const {filteredHeroes, heroesLoadingStatus} = useSelector(state => state);
+    const filteredHeroesSelector = createSelector(
+        state => state.filtersReducer.activeFilter,
+        state => state.heroesReducer.heroes,
+        (filter, heroes) => {
+            if(filter === 'all'){
+                console.log('render')
+                return heroes
+            }else {
+                return heroes.filter(el => el.element === filter)
+            }
+        }
+    )
+    // We get the function-selector and use it: 
+
+    const filteredHeroes = useSelector(filteredHeroesSelector);
+  
+    const heroesLoadingStatus = useSelector(state => state.heroesReducer.heroesLoadingStatus);
     const dispatch = useDispatch();
     const {request} = useHttp();
 

@@ -7,7 +7,7 @@ import classNames from 'classnames';
 const HeroesFilters = () => {
     const dispatch = useDispatch();
     const {request} = useHttp();
-    const {filters, activeFilter} = useSelector(state => state);
+    const {filters, activeFilter} = useSelector(state => state.filtersReducer);
     
     useEffect(() => {
         request("http://localhost:3001/filters")
