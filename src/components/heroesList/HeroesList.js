@@ -16,14 +16,12 @@ const HeroesList = () => {
         state => state.heroesReducer.heroes,
         (filter, heroes) => {
             if(filter === 'all'){
-                console.log('render')
                 return heroes
             }else {
                 return heroes.filter(el => el.element === filter)
             }
         }
     )
-    // We get the function-selector and use it: 
 
     const filteredHeroes = useSelector(filteredHeroesSelector);
   

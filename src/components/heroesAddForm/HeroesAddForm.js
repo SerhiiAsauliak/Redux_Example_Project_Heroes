@@ -1,13 +1,25 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {heroesAdd} from '../../actions';
 import {useHttp} from '../../hooks/http.hook';
 
 const HeroesAddForm = () => {
     const dispatch = useDispatch();
     const {request} = useHttp();
+    const {filters} = useSelector(state => state.filtersReducer);
+
+    const renderFilters = (filters) => {
+        if(filters && filters.length > 0){
+            return filters.map(({name, label}) => {
+                if(name === 'all'){
+                    return
+                }
+                return <option key={name} value={name}>{label}</option>
+            })
+        }
+    }
 
     return (
         <Formik initialValues={{ name: '', description: '', element: ''}}  
@@ -61,10 +73,7 @@ const HeroesAddForm = () => {
                         name="element"
                         as="select">
                         <option >Я владею элементом...</option>
-                        <option value="fire">Огонь</option>
-                        <option value="water">Вода</option>
-                        <option value="wind">Ветер</option>
-                        <option value="earth">Земля</option>
+                        {renderFilters(filters)}
                     </Field>
                     <ErrorMessage name="element" component="div" />
                 </div>
