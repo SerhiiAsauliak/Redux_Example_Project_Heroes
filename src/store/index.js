@@ -1,10 +1,6 @@
-import { legacy_createStore as createStore, 
-         combineReducers,
-         compose, 
-         applyMiddleware } from 'redux';
 import {filtersReducer} from '../reducers/filtersReducer';
 import {heroesReducer} from '../reducers/heroesReducer';
-import ReduxThunk from 'redux-thunk';
+import {configureStore} from '@reduxjs/toolkit';
 
 const stringMiddleware = () => (next) => (action) => {
    if(typeof action === 'string'){
@@ -13,11 +9,11 @@ const stringMiddleware = () => (next) => (action) => {
    return next(action)
 }
 
-const store = createStore(combineReducers({
-   filtersReducer, 
-   heroesReducer
-}), compose(applyMiddleware(ReduxThunk, stringMiddleware),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()))
+const store = configureStore({
+   reducer: {filtersReducer, heroesReducer},
+   middlware: getDefaultMiddleware => getDefaultMiddleware().concat(stringMiddleware),
+   devTools: true
+})
 
 export default store;
 
