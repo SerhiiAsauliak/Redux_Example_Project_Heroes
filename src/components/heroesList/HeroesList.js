@@ -6,7 +6,7 @@ import { CSSTransition, TransitionGroup} from
 import { createSelector } from 'reselect';
 import './heroList.scss'
 
-import { heroesFetching, heroesFetched, heroesFetchingError } from '../../actions';
+import {fetchHeroes } from '../../actions';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
@@ -30,11 +30,7 @@ const HeroesList = () => {
     const {request} = useHttp();
 
     useEffect(() => {
-        dispatch(heroesFetching());
-        request("http://localhost:3001/heroes")
-            .then(data => dispatch(heroesFetched(data)))
-            .catch(() => dispatch(heroesFetchingError()))
-        // eslint-disable-next-line
+        dispatch(fetchHeroes(request));
     }, []);
 
     useEffect(() => {

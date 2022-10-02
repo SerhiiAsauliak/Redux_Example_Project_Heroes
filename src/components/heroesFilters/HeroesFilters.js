@@ -1,19 +1,24 @@
 import {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {useHttp} from '../../hooks/http.hook';
-import { activeFilterChanged, setFilters} from '../../actions';
+import {fetchFilters, activeFilterChanged} from '../../actions';
 import classNames from 'classnames';
+import Spinner from './../spinner/Spinner';
 
 const HeroesFilters = () => {
     const dispatch = useDispatch();
     const {request} = useHttp();
-    const {filters, activeFilter} = useSelector(state => state.filtersReducer);
+    const {filters,filtersLoadingStatus ,activeFilter} = useSelector(state => state.filtersReducer);
     
     useEffect(() => {
-        request("http://localhost:3001/filters")
-            .then(data => dispatch(setFilters(data)))
-            .catch(err => console.log(err))
+        dispatch(fetchFilters(request));
     }, []);
+
+    if(filtersLoadingStatus === 'loading'){
+        return <Spinner/>
+    }else if(filtersLoadingStatus === 'error'){
+        return <h4 className="text-center mt-5">Ошибка загрузки</h4>
+    }
     
     const renderFilters = (arr) => {
         if (arr.length === 0) {

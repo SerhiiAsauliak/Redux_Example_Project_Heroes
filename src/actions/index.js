@@ -1,12 +1,8 @@
-import {heroesFetched, heroesFetching, heroesFetchingError} from './heroesFeth';
-import {heroesDelete} from './heroesDelete';
-import {heroesAdd} from './heroesAdd';
-import {setFilters, activeFilterChanged} from './filters';
+import {fetchFilters, activeFilterChanged} from './filtersActions';
+import {fetchHeroes, heroesDelete, heroesAdd} from './heroesActions';
 
-export {heroesFetched, 
-         heroesFetching, 
-         heroesFetchingError, 
+export {fetchHeroes, 
          heroesDelete,
          heroesAdd,
-         setFilters,
+         fetchFilters,
          activeFilterChanged};
