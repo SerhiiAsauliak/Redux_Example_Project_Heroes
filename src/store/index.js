@@ -11,7 +11,7 @@ const stringMiddleware = () => (next) => (action) => {
 
 const store = configureStore({
    reducer: {filtersReducer, heroesReducer},
-   middlware: getDefaultMiddleware => getDefaultMiddleware().concat(stringMiddleware),
+   middleware: getDefaultMiddleware => getDefaultMiddleware().concat(stringMiddleware),
    devTools: true
 })
 
