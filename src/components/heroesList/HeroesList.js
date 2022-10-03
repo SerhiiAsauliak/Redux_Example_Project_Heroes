@@ -12,8 +12,8 @@ import Spinner from '../spinner/Spinner';
 
 const HeroesList = () => {
     const filteredHeroesSelector = createSelector(
-        state => state.filtersReducer.activeFilter,
-        state => state.heroesReducer.heroes,
+        state => state.filters.activeFilter,
+        state => state.heroes.heroes,
         (filter, heroes) => {
             if(filter === 'all'){
                 return heroes
@@ -25,7 +25,7 @@ const HeroesList = () => {
 
     const filteredHeroes = useSelector(filteredHeroesSelector);
   
-    const heroesLoadingStatus = useSelector(state => state.heroesReducer.heroesLoadingStatus);
+    const heroesLoadingStatus = useSelector(state => state.heroes.heroesLoadingStatus);
     const dispatch = useDispatch();
     const {request} = useHttp();
 

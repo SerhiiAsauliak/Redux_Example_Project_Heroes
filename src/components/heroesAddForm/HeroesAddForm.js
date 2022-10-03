@@ -2,13 +2,13 @@ import { v4 as uuidv4 } from 'uuid';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import {heroesAdd} from '../../actions';
+import {heroesAdd} from '../../components/heroesList/heroesSlice';
 import {useHttp} from '../../hooks/http.hook';
 
 const HeroesAddForm = () => {
     const dispatch = useDispatch();
     const {request} = useHttp();
-    const {filters} = useSelector(state => state.filtersReducer);
+    const {filters} = useSelector(state => state.filters);
 
     const renderFilters = (filters) => {
         if(filters && filters.length > 0){
