@@ -3,10 +3,10 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CSSTransition, TransitionGroup} from 
 'react-transition-group';
-import { createSelector } from 'reselect';
-import './heroList.scss'
+import { createSelector } from '@reduxjs/toolkit';
+import './heroList.scss'    
 
-import {fetchHeroes } from '../../actions';
+import {fetchHeroes } from './heroesSlice';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
@@ -27,10 +27,9 @@ const HeroesList = () => {
   
     const heroesLoadingStatus = useSelector(state => state.heroes.heroesLoadingStatus);
     const dispatch = useDispatch();
-    const {request} = useHttp();
 
     useEffect(() => {
-        dispatch(fetchHeroes(request));
+        dispatch(fetchHeroes());
     }, []);
 
     useEffect(() => {
